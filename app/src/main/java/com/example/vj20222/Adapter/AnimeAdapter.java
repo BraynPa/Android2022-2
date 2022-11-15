@@ -43,7 +43,7 @@ public class AnimeAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         TextView tvDescAi = holder.itemView.findViewById(R.id.tvDescAi);
-        tvDescAi.setText(data.get(position).Desc);
+        tvDescAi.setText(data.get(position).tipo);
         TextView tvNameAi = holder.itemView.findViewById(R.id.tvNameAi);
         tvNameAi.setText(data.get(position).name);
         ImageView ivImgAi = holder.itemView.findViewById(R.id.ivImgAi);

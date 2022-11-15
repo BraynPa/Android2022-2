@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Sem11</string>
+    <String name="select">Seleccionar tipo</String>
+    <string-array name="tipo">
+        <item>Electrico</item>
+        <item>Roca</item>
+        <item>Agua</item>
+        <item>Fuego</item>
+    </string-array>
 </resources>

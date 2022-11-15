@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.vj20222.entities.Anime;
@@ -19,9 +22,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class FormAnimeActivity extends AppCompatActivity {
+public class FormAnimeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Button btnGuardarAf;
-    EditText etNameAf, etDescAf, etImageAf;
+    EditText etNameAf, etImageAf;
+    Spinner spinner;
+    String text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,18 +34,22 @@ public class FormAnimeActivity extends AppCompatActivity {
         Retrofit retrofit = new RetrofitFactory(this).build();
         AnimeService service = retrofit.create(AnimeService.class);
         etNameAf = findViewById(R.id.etNameAf);
-        etDescAf = findViewById(R.id.etDescAf);
+        spinner = findViewById(R.id.etDescAf);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.tipo,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setAdapter(adapter);
         etImageAf = findViewById(R.id.etImageAf);
         btnGuardarAf = findViewById(R.id.btnGuardarAf);
         btnGuardarAf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(etNameAf.getText().toString().equals("") || etDescAf.getText().toString().equals("") || etImageAf.getText().toString().equals("") ){
-                    Toast.makeText(FormAnimeActivity.this,"Ingresar Campos",Toast.LENGTH_LONG);
+                if(etNameAf.getText().toString().equals("") || text.equals("") || etImageAf.getText().toString().equals("") ){
+                    Toast.makeText(FormAnimeActivity.this,"Ingresar Campos",Toast.LENGTH_LONG).show();
                 }else{
                     Anime anime = new Anime();
                     anime.name = etNameAf.getText().toString();
-                    anime.Desc = etDescAf.getText().toString();
+                    anime.tipo = text;
                     anime.avatar = etImageAf.getText().toString();
                     service.create(anime).enqueue(new Callback<Void>() {
                         @Override
@@ -58,5 +67,16 @@ public class FormAnimeActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        text = adapterView.getItemAtPosition(i).toString();
+        Toast.makeText(adapterView.getContext(),text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

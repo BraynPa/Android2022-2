@@ -4,5 +4,7 @@ public class Anime {
     public int id;
     public String name;
     public String avatar;
-    public String Desc;
+    public String tipo;
+    public double latitude;
+    public double longitude;
 }
